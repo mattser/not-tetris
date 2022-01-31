@@ -5,5 +5,5 @@
 
 About
 =====
-Web based JavaScript Video Game Challenge! Welcome to my reindition of the classic, hit arcade game, Tetris!
+Web based JavaScript Video Game Challenge! Welcome to my original concept, with no relation to the original classic, hit arcade game, Tetris!
 This Repo is for educational purposes only.
