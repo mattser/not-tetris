@@ -1,7 +1,8 @@
 // Call things with x,y 
 // Coordinates will be in a 3 letter string: 2 for y (0-21) and 1 for x (0-9)
 
-import Tetromino from "./tetromino.mjs"
+import Tetromino from "./tetromino.mjs";
+import Board from "./board.mjs";
 
 // New Game
 class Game {
@@ -18,6 +19,7 @@ class Game {
 
   addKeyPressListener() {
     document.addEventListener('keypress',(event) => {
+      console.log(event.code);
       if (event.code === "Space") {
         if (Object.keys(this._activeTetromino).length > 0) {
           this._activeTetromino.toggleDraw();
@@ -25,36 +27,16 @@ class Game {
         this._activeTetromino = new Tetromino();
         this._activeTetromino.toggleDraw();
         console.log("You Pressed Space")
+      } else if (event.code ==="KeyA") {
+          console.log("Turning Counter CloseWise");
+          this._activeTetromino.toggleDraw();
+          this._activeTetromino.rotate();
+          this._activeTetromino.toggleDraw();
       }
     })
   }
 }
 
-class Board {
-  constructor (element) {
-    this._element = element;
-    this.drawNewBoard(element);
-    this._grid = this.createGrid();
-  }
-
-  drawNewBoard (element) {
-    for (let y = 0; y <= 21; y++) {
-      for (let x = 0; x <=9; x++) {
-        element.innerHTML+=`\n<div class="board__block" id="${String(x)+"x"+String(y)}">${String(x)+"x"+String(y)}</div>`;
-      }
-    }
-  }
-  createGrid () {
-    return new Array(10).fill( new Array(22).fill(0));
-  }
-
-  get grid () {
-    return this._grid;
-  }
-  set grid (value) {
-    this._grid = value;
-  }
-}
 // Create a new board
   // Board is 10 x 22 cells
   // Draw grid on the html
