@@ -29,4 +29,8 @@ body {
   height: 20px;
   font-size: 0.5em;
 }
+
+.board__block--filled {
+  background-color: red;
+}
 /*# sourceMappingURL=style.css.map */

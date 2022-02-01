@@ -1,6 +1,8 @@
 // Call things with x,y 
 // Coordinates will be in a 3 letter string: 2 for y (0-21) and 1 for x (0-9)
 
+import Tetromino from "./tetromino.mjs"
+
 // New Game
 class Game {
   constructor (element) {
@@ -17,7 +19,11 @@ class Game {
   addKeyPressListener() {
     document.addEventListener('keypress',(event) => {
       if (event.code === "Space") {
-        this._activeTetromino = new Tetromino(Math.floor(Math.random()*9));
+        if (Object.keys(this._activeTetromino).length > 0) {
+          this._activeTetromino.toggleDraw();
+        }
+        this._activeTetromino = new Tetromino();
+        this._activeTetromino.toggleDraw();
         console.log("You Pressed Space")
       }
     })
@@ -53,22 +59,31 @@ class Board {
   // Board is 10 x 22 cells
   // Draw grid on the html
 
-class Tetromino {
-  constructor (spawnPos) {
-    this._types = ["L","T","Square","Pipe","Skew"];
-    this._type = this._types[Math.floor(Math.random()*this._types.length)];
-    this._centralPos = spawnPos;
-    console.log(this._type);
-  }
 
-}
 
 // Create New Tetromino
   // Pick random from a pool
-  // Render at the top of the pag
+  // Render at the top of the page
 
 // Move Tetromino Down
   // On click, translate the position of the tetromino down by 1.
   // Tetrominos are rended from a single position and orientation parameter
 
 const notTetris = new Game(document.querySelector(".board"));
+
+// Rotate Left:
+  // Y becomes negative x
+  // X becomes y
+
+// Rotate Right
+  // x becomes negative y
+  // y becomes x
+
+
+// pipe
+// [[0,0,1,0],[0,0,1,0],[0,0,1,0],[0,0,1,0]]
+
+// square
+// [[0,0,0,0],[0,1,1,0],[0,1,1,0],[0,0,0,0]]
+
+// Skew

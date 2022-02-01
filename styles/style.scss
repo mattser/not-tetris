@@ -23,5 +23,9 @@ body {
     background-color: white;
     height: 20px;
     font-size: 0.5em;
+
+    &--filled {
+      background-color: red;
+    }
   }
 }
