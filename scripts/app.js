@@ -38,6 +38,7 @@ class Game {
   }
   
   runGame = async () => {
+    
     console.log(this._activeTetromino.checkCollision())
     if (this._activeTetromino.checkCollision()) {
       this._activeTetromino.fall();
@@ -46,6 +47,10 @@ class Game {
     } else {
       this._board.mergeToGrid(this._activeTetromino.blockPositions)
       console.log("Stopped");
+      this._activeTetromino = {};
+      this._activeTetromino = new Tetromino();
+      this._activeTetromino.toggleDraw(); 
+      setTimeout(this.runGame,1000);
     }
   }
 }
