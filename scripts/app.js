@@ -21,11 +21,12 @@ class Game {
     document.addEventListener('keypress',(event) => {
       console.log(event.code);
       if (event.code === "Space") {
-        if (Object.keys(this._activeTetromino).length > 0) {
-          this._activeTetromino.toggleDraw();
-        }
+        // if (Object.keys(this._activeTetromino).length > 0) {
+        //   this._activeTetromino.toggleDraw();
+        // }
         this._activeTetromino = new Tetromino();
         this._activeTetromino.toggleDraw();
+        setTimeout(this.runGame,500);
         console.log("You Pressed Space")
       } else if (event.code ==="KeyA") {
           console.log("Turning Counter CloseWise");
@@ -34,6 +35,18 @@ class Game {
           this._activeTetromino.toggleDraw();
       }
     })
+  }
+  
+  runGame = async () => {
+    console.log(this._activeTetromino.checkCollision())
+    if (this._activeTetromino.checkCollision()) {
+      this._activeTetromino.fall();
+      setTimeout(this.runGame, 100);
+      console.log("New Moving Instance");
+    } else {
+      this._board.mergeToGrid(this._activeTetromino.blockPositions)
+      console.log("Stopped");
+    }
   }
 }
 
@@ -51,8 +64,7 @@ class Game {
   // On click, translate the position of the tetromino down by 1.
   // Tetrominos are rended from a single position and orientation parameter
 
-const notTetris = new Game(document.querySelector(".board"));
-
+const game = new Game(document.querySelector(".board"));
 // Rotate Left:
   // Y becomes negative x
   // X becomes y

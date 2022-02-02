@@ -70,6 +70,19 @@ export default class Tetromino {
     // Perform rotation
     // re-transcribe
   }
+  fall() {
+    this.toggleDraw();
+    const currentPosition = this._blockPositions;
+    this._blockPositions = currentPosition.map(coord => {
+      return [coord[0],coord[1]+1];
+    })
+    console.log(this._blockPositions)
+    this.toggleDraw();
+  }
+  checkCollision() {
+    const currentPosition = this._blockPositions;
+    return currentPosition.every(coord => coord[1] <= 20);
+  }
 }
 
 

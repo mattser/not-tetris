@@ -13,7 +13,15 @@ export default class Board {
     }
   }
   createGrid () {
-    return new Array(10).fill( new Array(22).fill(0));
+    // return [...new Array(10).fill([...new Array(22).fill(0)])];
+    let returnArr = [];
+    for (let i = 0; i < 10; i++) {
+      returnArr.push([]);
+      for (let j = 0; j < 22; j++) {
+        returnArr[i].push(0);
+      } 
+    }
+    return returnArr;
   }
 
   get grid () {
@@ -21,5 +29,16 @@ export default class Board {
   }
   set grid (value) {
     this._grid = value;
+  }
+  mergeToGrid(blockCoords) {
+    console.log(blockCoords)
+    for (let i = 0; i < blockCoords.length; i++) {
+      let x = blockCoords[i][0];
+      let y = blockCoords[i][1];
+      console.log(x,y)
+      this._grid[x][y] = 1;
+    }
+    console.log("Merged!")
+    console.log(this._grid);
   }
 }
