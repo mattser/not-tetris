@@ -1,0 +1,91 @@
+Tetris Board Consists of:
+- A 10 cells wide
+- Between 21 - 40 cells tall.
+- For this game the grid will be 10x22
+- The main grid will be a single 2 dimnensional array of stored pieces
+
+The game pieces, "tetrominoes" will come in the form of a class, with the
+necessary pieces to build and render each individual active tetrominoe.
+Each Tetrominoe consists of 4 blocks.
+
+Tetrominoes include:
+- "straight"
+- "square"
+- "T"
+- "L"
+- "Skew" or "S"
+
+Tetrominoe Should:
+- Render as soon as the tetrominoe before collides with the stack
+- Begin falling towards the stack
+- Be able to be rotated around some central point (To be defined)
+- Collide join up with other blocks (but not go through them)
+- Be aware of its current position
+
+The Grid Should:
+- Render itself and the tetrominoes within
+- Represents both static and moving entities
+- Recognise when an entire row of 10 is filled
+  - If row is completed delete row, add to current score
+  - move everything in the grid down
+- Force a new tetrominoe to spawn
+
+===========================================================================
+Game Logic
+===========================================================================
+
+New Instance of Game:
+- Score is Zero
+- Game is in a pause / start screen state
+- Empty Board
+- No tetrominoe objects
+
+Game Starts:
+- Board is rendered
+- Start Tick time at lowest
+- Board is Empty
+- begin rendering tetrominoe
+  - Pick randomly out of the pool of possible Tetrominoes
+  - Place at the top in random position
+  - Render with random colour
+
+Every Game Tick 
+- check if tetrominoe can move down
+  - If yes
+    - move tetrominoe down
+    - update position on Board
+    - update position in tetrominoe object
+  - if no
+    - Change tetrominoe to static object
+    - merge with the Board
+    - delete tetrominoe object
+- check for completed row
+  - if yes then 
+    - delete the whole row
+    - add points to a point multiplyer
+    - move everything down
+    - repeat for number of completed rows
+    - add multipleyed score to total score
+  - if no
+    - continue as normal
+- render new tetrominoe
+
+When rotate button pressed
+- check to see if the tetrominoe can be rotated
+  - if yes
+    - rotate tetrominoe
+    - update position on the Board
+    - update position in the object
+  - if no
+    - don't rotate
+- continue
+
+Rotate Tetrominoe
+- Get position of tetrominoe
+- get rotate direction (left, right)
+- erase current tetrominoe from the Board#
+- perform translation on the tetrominoe
+  - each class will have instruction on rotation
+  - square will not rotate
+  - line will rotate about its center point (4x4 grid)
+  - "T", "L" and "skew" will rotate about center point (3x3 grid)
