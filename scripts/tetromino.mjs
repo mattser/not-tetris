@@ -79,9 +79,14 @@ export default class Tetromino {
     console.log(this._blockPositions)
     this.toggleDraw();
   }
-  checkCollision() {
+  isAbleToMove(direction,currentGrid) {
     const currentPosition = this._blockPositions;
-    return currentPosition.every(coord => coord[1] <= 20);
+    switch (direction) {
+      case "down":
+        return currentPosition.every(coord => {
+          return coord[1] <= 20 && !(currentGrid[coord[0]][coord[1]+1] );
+        }) 
+    }
   }
 }
 

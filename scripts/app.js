@@ -39,10 +39,10 @@ class Game {
   
   runGame = async () => {
     
-    console.log(this._activeTetromino.checkCollision())
-    if (this._activeTetromino.checkCollision()) {
+    console.log(this._activeTetromino.isAbleToMove("down",this._board.grid))
+    if (this._activeTetromino.isAbleToMove("down",this._board.grid)) {
       this._activeTetromino.fall();
-      setTimeout(this.runGame, 100);
+      setTimeout(this.runGame, 50);
       console.log("New Moving Instance");
     } else {
       this._board.mergeToGrid(this._activeTetromino.blockPositions)
@@ -50,7 +50,7 @@ class Game {
       this._activeTetromino = {};
       this._activeTetromino = new Tetromino();
       this._activeTetromino.toggleDraw(); 
-      setTimeout(this.runGame,1000);
+      setTimeout(this.runGame,500);
     }
   }
 }

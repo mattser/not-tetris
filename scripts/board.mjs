@@ -5,6 +5,10 @@ export default class Board {
     this._grid = this.createGrid();
   }
 
+  get grid() {
+    return this._grid;
+    }
+
   drawNewBoard (element) {
     for (let y = 0; y <= 21; y++) {
       for (let x = 0; x <=9; x++) {
