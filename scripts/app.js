@@ -39,19 +39,27 @@ class Game {
   
   runGame = async () => {
     
-    console.log(this._activeTetromino.isAbleToMove("down",this._board.grid))
-    if (this._activeTetromino.isAbleToMove("down",this._board.grid)) {
-      this._activeTetromino.fall();
-      setTimeout(this.runGame, 50);
-      console.log("New Moving Instance");
+    if (this._board.isGameOver()) {
+      this.gameOver();
+
     } else {
-      this._board.mergeToGrid(this._activeTetromino.blockPositions)
-      console.log("Stopped");
-      this._activeTetromino = {};
-      this._activeTetromino = new Tetromino();
-      this._activeTetromino.toggleDraw(); 
-      setTimeout(this.runGame,500);
+      console.log("Game Continue!")
+      if (this._activeTetromino.isAbleToMove("down",this._board.grid)) {
+        this._activeTetromino.fall();
+        setTimeout(this.runGame, 50);
+      } else {
+        this._board.mergeToGrid(this._activeTetromino.blockPositions)
+        this._activeTetromino = {};
+        this._activeTetromino = new Tetromino();
+        this._activeTetromino.toggleDraw(); 
+        setTimeout(this.runGame,500);
+      }
     }
+  }
+
+  gameOver() {
+    this._element.innerHTML = "GAME OVER";
+    console.log("Game Over!")
   }
 }
 

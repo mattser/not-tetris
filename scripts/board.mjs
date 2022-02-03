@@ -35,14 +35,18 @@ export default class Board {
     this._grid = value;
   }
   mergeToGrid(blockCoords) {
-    console.log(blockCoords)
     for (let i = 0; i < blockCoords.length; i++) {
       let x = blockCoords[i][0];
       let y = blockCoords[i][1];
-      console.log(x,y)
       this._grid[x][y] = 1;
     }
-    console.log("Merged!")
-    console.log(this._grid);
+  }
+  isGameOver() {
+    let endLine = [];
+    for (let i = 0; i < 10; i++) {
+      endLine.push(this._grid[i][2])
+    }
+    console.log(endLine);
+    return endLine.some(item => item);
   }
 }

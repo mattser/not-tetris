@@ -4,8 +4,6 @@ export default class Tetromino {
     this._type = this._types[Math.floor(Math.random()*this._types.length)];
     this._rotation = 0;
     this._blockPositions = this.setInitialSpawn();
-    console.log(this._type);
-    console.log(this._blockPositions);
   }
   get type () {
     return this._type;
@@ -51,15 +49,10 @@ export default class Tetromino {
     // Make some relative grid, i.e, smallest position to max
     const minX = Math.min(...x);
     const minY = Math.min(...y);
-    console.log(minX,minY)
     x = x.map(item => item-minX);
     y = y.map(item => item-minY);
-    console.log(x,y)
     const xNew = y.map(item => item+minX);
     const yNew = x.map(item => item+minY).reverse();
-    console.log(xNew,yNew);
-    console.log(typeof xNew)
-    console.log(xNew[1]);
     const newCoords = [];
     for (let i = 0; i < yNew.length; i++){
       newCoords.push([xNew[i],yNew[i]])
@@ -76,7 +69,6 @@ export default class Tetromino {
     this._blockPositions = currentPosition.map(coord => {
       return [coord[0],coord[1]+1];
     })
-    console.log(this._blockPositions)
     this.toggleDraw();
   }
   isAbleToMove(direction,currentGrid) {
