@@ -10,8 +10,8 @@ body {
 
 .board {
   display: grid;
-  grid-template-columns: repeat(10,20px);
-  gap: 5px;
+  grid-template-columns: repeat(10,10px);
+  gap: 2px;
   text-align: center;
   width: fit-content;
   margin: auto;
@@ -21,7 +21,7 @@ body {
   &__block {
     border-radius: 2px;
     background-color: white;
-    height: 20px;
+    height: 10px;
     font-size: 0.5em;
 
     &--filled {

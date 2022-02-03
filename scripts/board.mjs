@@ -12,7 +12,7 @@ export default class Board {
   drawNewBoard (element) {
     for (let y = 0; y <= 21; y++) {
       for (let x = 0; x <=9; x++) {
-        element.innerHTML+=`\n<div class="board__block" id="${String(x)+"x"+String(y)}">${String(x)+"x"+String(y)}</div>`;
+        element.innerHTML+=`\n<div class="board__block" id="${String(x)+"x"+String(y)}"></div>`;
       }
     }
   }
@@ -46,7 +46,47 @@ export default class Board {
     for (let i = 0; i < 10; i++) {
       endLine.push(this._grid[i][2])
     }
-    console.log(endLine);
     return endLine.some(item => item);
+  }
+  checkForFilledRows() {
+    let rowTotal;
+    const completedRows = [];
+    for (let y = 21; y > 0; y--){
+      rowTotal = 0
+      for (let x = 0; x < 10; x++) {
+        rowTotal+= this._grid[x][y];
+      }
+      if (rowTotal===10) {
+        
+        completedRows.push(y);
+        console.log(completedRows);
+      }
+    }
+    if (completedRows.length > 0) {
+      console.log(this._grid);
+      this.deleteRows(completedRows);
+      console.log(this._grid);
+      return completedRows.length*2*100;
+    } else {
+      return 0;
+    }
+  }
+  deleteRows(rows) {
+    this.toggleGridDraw();
+    for (let i = 0; i < rows.length; i++) {
+      for (let x = 0; x < 10; x ++) {
+        this._grid[x].splice(rows[i]+i,1);
+        this._grid[x].unshift(0);
+        console.log('Deleted Row');
+      }
+    }
+    this.toggleGridDraw();
+  }
+  toggleGridDraw() {
+    for (let y = 0; y <= 21; y++) {
+      for (let x = 0; x < 10; x++) {
+        if (this._grid[x][y]) document.getElementById(`${x}x${y}`).classList.toggle("board__block--filled");
+      }
+    }
   }
 }
