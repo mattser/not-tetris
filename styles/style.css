@@ -11,9 +11,9 @@ body {
 .board {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (20px)[10];
-      grid-template-columns: repeat(10, 20px);
-  gap: 5px;
+  -ms-grid-columns: (10px)[10];
+      grid-template-columns: repeat(10, 10px);
+  gap: 2px;
   text-align: center;
   width: -webkit-fit-content;
   width: -moz-fit-content;
@@ -26,7 +26,7 @@ body {
 .board__block {
   border-radius: 2px;
   background-color: white;
-  height: 20px;
+  height: 10px;
   font-size: 0.5em;
 }
 

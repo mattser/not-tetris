@@ -19,53 +19,52 @@ class Game {
 
   addKeyPressListener() {
     document.addEventListener('keypress',(event) => {
-      console.log(event.code);
-      if (event.code === "Space") {
-        if (Object.keys(this._activeTetromino).length > 0) {
+      switch(event.code) {
+        case "Space":
+          this._activeTetromino = new Tetromino();
           this._activeTetromino.toggleDraw();
-        }
-        this._activeTetromino = new Tetromino();
-        this._activeTetromino.toggleDraw();
-        console.log("You Pressed Space")
-      } else if (event.code ==="KeyA") {
-          console.log("Turning Counter CloseWise");
-          this._activeTetromino.toggleDraw();
+          setTimeout(this.runGame,500);
+          break;
+        case "KeyA":
+          if (this._activeTetromino.isAbleToMove("left",this._board.grid)) this._activeTetromino.translate("left");
+          break;
+        case "KeyD":
+          if (this._activeTetromino.isAbleToMove("right",this._board.grid)) this._activeTetromino.translate("right");
+          break;
+        case "KeyS":
           this._activeTetromino.rotate();
-          this._activeTetromino.toggleDraw();
       }
     })
   }
+  
+  runGame = async () => {
+    
+    if (this._board.isGameOver()) {
+      this.gameOver();
+
+    } else {
+      this._score += await this._board.checkForFilledRows();
+      document.querySelector('#score').innerHTML = this._score;
+      if (this._activeTetromino.isAbleToMove("down",this._board.grid)) {
+        this._activeTetromino.translate("down");
+        setTimeout(this.runGame, 100);
+      } else {
+        this._board.mergeToGrid(this._activeTetromino.blockPositions)
+        this._activeTetromino = {};
+        this._activeTetromino = new Tetromino();
+        this._activeTetromino.toggleDraw(); 
+        setTimeout(this.runGame,500);
+      }
+    }
+  }
+
+  gameOver() {
+    this._element.innerHTML = "GAME OVER";
+    console.log("Game Over!")
+  }
 }
 
-// Create a new board
-  // Board is 10 x 22 cells
-  // Draw grid on the html
+// Game Creation Upon Document Creation
 
+const game = new Game(document.querySelector(".board"));
 
-
-// Create New Tetromino
-  // Pick random from a pool
-  // Render at the top of the page
-
-// Move Tetromino Down
-  // On click, translate the position of the tetromino down by 1.
-  // Tetrominos are rended from a single position and orientation parameter
-
-const notTetris = new Game(document.querySelector(".board"));
-
-// Rotate Left:
-  // Y becomes negative x
-  // X becomes y
-
-// Rotate Right
-  // x becomes negative y
-  // y becomes x
-
-
-// pipe
-// [[0,0,1,0],[0,0,1,0],[0,0,1,0],[0,0,1,0]]
-
-// square
-// [[0,0,0,0],[0,1,1,0],[0,1,1,0],[0,0,0,0]]
-
-// Skew
