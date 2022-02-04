@@ -79,4 +79,9 @@ let game = new Game(document.querySelector(".board"));
 
 document.getElementById('new-game').addEventListener("click",(event) => {
   location.reload();
+  // event.preventDefault();
+  // document.querySelector(".board").innerHTML = "";
+  // clearTimeout(game.runGame)
+  // game = {};
+  // game = new Game(document.querySelector(".board"));
 })
