@@ -31,21 +31,15 @@ export default class Board {
     return this._grid;
   }
 
-  mergeToGrid(blockCoords) {
-    for (let i = 0; i < blockCoords.length; i++) {
-      let x = blockCoords[i][0];
-      let y = blockCoords[i][1];
-      this._grid[x][y] = 1;
-    }
+  mergeToGrid (blockCoords) {
+    blockCoords.forEach(coord => this._grid[coord[0]][coord[1]] = 1);
   }
-  isGameOver() {
-    let endLine = [];
-    for (let i = 0; i < 10; i++) {
-      endLine.push(this._grid[i][2])
-    }
-    return endLine.some(item => item);
+
+  isGameOver () {
+    return this._grid.some(column => column[2]);
   }
-  checkForFilledRows() {
+
+  checkForFilledRows () {
     let rowTotal;
     const completedRows = [];
     for (let y = 21; y > 0; y--){
@@ -53,18 +47,13 @@ export default class Board {
       for (let x = 0; x < 10; x++) {
         rowTotal+= this._grid[x][y];
       }
-      if (rowTotal===10) {
-        completedRows.push(y);
-      }
+      if (rowTotal===10) completedRows.push(y);
     }
-    if (completedRows.length > 0) {
-      this.deleteRows(completedRows);
-      return completedRows.length*2*100;
-    } else {
-      return 0;
-    }
+    if (completedRows.length) this.deleteRows(completedRows);
+    return completedRows.length*2*100;
   }
-  deleteRows(rows) {
+
+  deleteRows (rows) {
     this.toggleGridDraw();
     for (let i = 0; i < rows.length; i++) {
       for (let x = 0; x < 10; x ++) {
@@ -74,7 +63,7 @@ export default class Board {
     }
     this.toggleGridDraw();
   }
-  toggleGridDraw() {
+  toggleGridDraw () {
     for (let y = 0; y <= 21; y++) {
       for (let x = 0; x < 10; x++) {
         if (this._grid[x][y]) document.getElementById(`${x}x${y}`).classList.toggle("board__block--filled");
