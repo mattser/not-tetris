@@ -9,19 +9,20 @@ export default class Game {
     this.addKeyPressListener();
     this._activeTetromino = {};
     this._allowedToRotate = false;
-  }
-  get board () {
-    return this._board;
+    this._isGameRunning = false;
   }
 
   addKeyPressListener() {
     document.addEventListener('keypress',(event) => {
       switch(event.code) {
         case "Space":
-          document.querySelector("p").classList.toggle("hidden")
-          this._activeTetromino = new Tetromino();
-          this._activeTetromino.toggleDraw();
-          setTimeout(this.runGame,500);
+          if (!this._isGameRunning) {
+            document.querySelector("p").classList.toggle("hidden")
+            this._activeTetromino = new Tetromino();
+            this._activeTetromino.toggleDraw();
+            this._isGameRunning = true;
+            setTimeout(this.runGame,500);
+          }
           break;
         case "KeyA":
           if (this._activeTetromino.isAbleToMove("left",this._board.grid)) this._activeTetromino.translate("left");
@@ -40,19 +41,17 @@ export default class Game {
     
     if (this._board.isGameOver()) {
       this.gameOver();
-
     } else {
-
       this._score += await this._board.checkForFilledRows();
       document.querySelector('#score').innerHTML = `Score: ${this._score}`;
       this._allowedToRotate = false;
+
       if (this._activeTetromino.isAbleToMove("down",this._board.grid)) {
         this._activeTetromino.translate("down");
         this._allowedToRotate = true;
         setTimeout(this.runGame, 100);
       } else {
         this._board.mergeToGrid(this._activeTetromino.blockPositions)
-        this._activeTetromino = {};
         this._activeTetromino = new Tetromino();
         this._activeTetromino.toggleDraw(); 
         this._allowedToRotate = true;
@@ -62,8 +61,7 @@ export default class Game {
   }
 
   gameOver() {
-    this._element.classList.toggle("game-over")
+    this._element.classList.toggle("game-over");
     this._element.innerHTML = "<h1>GAME OVER<h1>";
-    console.log("Game Over!")
   }
 }

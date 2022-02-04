@@ -27,10 +27,6 @@ export default class Board {
     return returnArr;
   }
 
-  get grid () {
-    return this._grid;
-  }
-
   mergeToGrid (blockCoords) {
     blockCoords.forEach(coord => this._grid[coord[0]][coord[1]] = 1);
   }
@@ -40,10 +36,9 @@ export default class Board {
   }
 
   checkForFilledRows () {
-    let rowTotal;
     const completedRows = [];
     for (let y = 21; y > 0; y--){
-      rowTotal = 0
+      let rowTotal = 0;
       for (let x = 0; x < 10; x++) {
         rowTotal+= this._grid[x][y];
       }
@@ -63,6 +58,7 @@ export default class Board {
     }
     this.toggleGridDraw();
   }
+  
   toggleGridDraw () {
     for (let y = 0; y <= 21; y++) {
       for (let x = 0; x < 10; x++) {
