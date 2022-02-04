@@ -21,7 +21,7 @@ export default class Game {
             this._activeTetromino = new Tetromino();
             this._activeTetromino.toggleDraw();
             this._isGameRunning = true;
-            setTimeout(this.runGame,500);
+            setTimeout(() => this.runGame(), 500);
           }
           break;
         case "KeyA":
@@ -37,25 +37,25 @@ export default class Game {
     })
   }
   
-  runGame = async () => {
+  runGame () {
     
     if (this._board.isGameOver()) {
       this.gameOver();
     } else {
-      this._score += await this._board.checkForFilledRows();
+      this._score += this._board.checkForFilledRows();
       document.querySelector('#score').innerHTML = `Score: ${this._score}`;
       this._allowedToRotate = false;
 
       if (this._activeTetromino.isAbleToMove("down",this._board.grid)) {
         this._activeTetromino.translate("down");
         this._allowedToRotate = true;
-        setTimeout(this.runGame, 100);
+        setTimeout(() => this.runGame(), 100);
       } else {
         this._board.mergeToGrid(this._activeTetromino.blockPositions)
         this._activeTetromino = new Tetromino();
         this._activeTetromino.toggleDraw(); 
         this._allowedToRotate = true;
-        setTimeout(this.runGame,500);
+        setTimeout(() => this.runGame(), 500);
       }
     }
   }
