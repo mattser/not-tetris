@@ -45,7 +45,8 @@ p {
   position: absolute;
   background-color: #202124;
   font-size: 10px;
-  width: 160px;
+  padding: 10px;
+  width: 150px;
   top: 38%;
   left: 50%;
   -webkit-transform: translate(-50%, 0);
@@ -129,9 +130,10 @@ p {
   margin-top: 20px;
   background-color: #13ab7a;
   color: white;
-  padding: 5px;
-  border-radius: 5px;
+  padding: 10px;
+  border-radius: 10px;
   border: none;
+  font-family: 'Arcade Normal';
 }
 
 #new-game:hover {
