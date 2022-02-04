@@ -8,7 +8,7 @@ export default class Game {
     this._score = 0;
     this.addKeyPressListener();
     this._activeTetromino = {};
-    this._ableToRotate = false;
+    this._allowedToRotate = false;
   }
   get board () {
     return this._board;
@@ -30,7 +30,7 @@ export default class Game {
           if (this._activeTetromino.isAbleToMove("right",this._board.grid)) this._activeTetromino.translate("right");
           break;
         case "KeyS":
-          if (this._ableToRotate) this._activeTetromino.rotate();
+          if (this._allowedToRotate) this._activeTetromino.rotate();
           break;
       }
     })
@@ -45,17 +45,17 @@ export default class Game {
 
       this._score += await this._board.checkForFilledRows();
       document.querySelector('#score').innerHTML = `Score: ${this._score}`;
-      this._ableToRotate = false;
+      this._allowedToRotate = false;
       if (this._activeTetromino.isAbleToMove("down",this._board.grid)) {
         this._activeTetromino.translate("down");
-        this._ableToRotate = true;
+        this._allowedToRotate = true;
         setTimeout(this.runGame, 100);
       } else {
         this._board.mergeToGrid(this._activeTetromino.blockPositions)
         this._activeTetromino = {};
         this._activeTetromino = new Tetromino();
         this._activeTetromino.toggleDraw(); 
-        this._ableToRotate = true;
+        this._allowedToRotate = true;
         setTimeout(this.runGame,500);
       }
     }

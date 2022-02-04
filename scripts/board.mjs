@@ -17,7 +17,6 @@ export default class Board {
     }
   }
   createGrid () {
-    // return [...new Array(10).fill([...new Array(22).fill(0)])];
     let returnArr = [];
     for (let i = 0; i < 10; i++) {
       returnArr.push([]);
@@ -59,13 +58,10 @@ export default class Board {
       if (rowTotal===10) {
         
         completedRows.push(y);
-        console.log(completedRows);
       }
     }
     if (completedRows.length > 0) {
-      console.log(this._grid);
       this.deleteRows(completedRows);
-      console.log(this._grid);
       return completedRows.length*2*100;
     } else {
       return 0;
@@ -77,7 +73,6 @@ export default class Board {
       for (let x = 0; x < 10; x ++) {
         this._grid[x].splice(rows[i]+i,1);
         this._grid[x].unshift(0);
-        console.log('Deleted Row');
       }
     }
     this.toggleGridDraw();
