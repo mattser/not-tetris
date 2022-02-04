@@ -69,7 +69,9 @@ export default class Tetromino {
   rotate() {
     // Get current coordinates of the block
     this.toggleDraw();
+    this._rotation++;
     const currentPosition = this._blockPositions;
+    let index;
     let x = [];
     let y = [];
     for (const coord of currentPosition) {
@@ -79,27 +81,19 @@ export default class Tetromino {
     // Make some relative grid, i.e, smallest position to max
     const minX = Math.min(...x);
     const minY = Math.min(...y);
-    x = x.map(item => item-minX);
-    y = y.map(item => item-minY);
-    let xNew, yNew;
-    if (this._rotation%2) {
-      xNew = y.map(item => item+minX);
-      yNew = x.map(item => item+minY).reverse();
-    } else {
-      xNew = y.map(item => item+minX).reverse();
-      yNew = x.map(item => item+minY);
-    }
-    const newCoords = [];
-    for (let i = 0; i < yNew.length; i++){
-      newCoords.push([xNew[i],yNew[i]])
+
+    for (let i = 0; i < this._blockPhases.length; i++) {
+      if (!(this.rotation%i)) {
+        index = i;
+      }
     }
 
-    this._blockPositions = newCoords;
-    // Translate block onto relative grid
-    // Perform rotation
-    // re-transcribe
-    this._rotation++;
-    console.log(this._rotation)
+    this._blockPositions = this._blockPhases[index].map(coord => {
+      coord[0] += minX;
+      coord[1] += minY;
+      return coord;
+    })
+    
     this.toggleDraw();
   }
   translate(direction) {

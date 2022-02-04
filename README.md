@@ -18,18 +18,23 @@ This project has been written in:
 Features
 ========
 
-* Renders Tetris Grid
-* Creates the classic Tetromino Objects
-* Rotates some of the Tetrominoes
+* Randomly Generated Tetrominos
+* Translating Tetrominos (Left and Right)
+* Rotating Tetrominos
+* Row Deletion and Point System
 * Object Oriented Approach
 
 <br />
 
-TODO:
-=====
+Known Bugs
+==========
 
-* Standard Game Logic
-* Move Tetrominos
-* Collision Detection
-* Merging Tetrominos to stack
-* Row Deletion and Score adding
+* Rotating near map boundries may bork the game
+* If rotation is called at the same time as the game steps, blocks will fly
+* If rotation is called at a merge event it may bork the game
+
+<br />
+
+Credits
+=======
+Font generated from [cufonfonts](https://www.cufonfonts.com/font/arcade), (c)1997-2003 Yuji Adachi
