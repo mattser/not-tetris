@@ -2,8 +2,11 @@ export default class Tetromino {
   constructor () {
     this._types = ["L","T","Square","Pipe","Skew"];
     this._type = this._types[Math.floor(Math.random()*this._types.length)];
+    console.log(this._type);
     this._rotation = 0;
+    this._blockPhases = this.setBlockPhases(this._type);
     this._blockPositions = this.setInitialSpawn();
+    
   }
   get type () {
     return this._type;
@@ -18,19 +21,46 @@ export default class Tetromino {
     return this._blockPositions;
   }
   setInitialSpawn() {
-    switch (this._type) {
+    return this._blockPhases[0].map(coord => {
+      coord[0] += 3;
+      return coord;
+    })
+  }
+
+  setBlockPhases(tetrominoType) {
+    switch (tetrominoType) {
       case "L":
-        return [[3,0],[4,0],[5,0],[3,1]];
+        return [
+          [[0,0],[1,0],[2,0],[0,1]],
+          [[0,0],[1,0],[1,1],[1,2]],
+          [[0,1],[1,1],[2,1],[2,0]],
+          [[0,0],[0,1],[0,2],[1,2]]
+        ];
       case "T":
-        return [[3,0],[4,0],[5,0],[4,1]];
+        return [
+          [[0,0],[0,1],[0,2],[1,1]],
+          [[1,0],[1,1],[1,2],[0,1]],
+          [[0,1],[1,1],[2,1],[1,0]],
+          [[0,0],[0,1],[0,2],[1,1]]
+        ];
       case "Square":
-        return [[4,0],[4,1],[5,0],[5,1]];
-      case "Pipe":
-        return [[3,0],[4,0],[5,0],[6,0]];
+        return [
+          [[0,0],[0,1],[1,0],[1,1]],
+          [[0,0],[0,1],[1,0],[1,1]]
+        ];
       case "Skew":
-        return [[5,0],[4,1],[6,0],[5,1]];
+        return [
+          [[1,0],[2,0],[0,1],[1,1]],
+          [[0,0],[0,1],[1,1],[1,2]]
+        ];
+      case "Pipe":
+        return [
+          [[0,0],[1,0],[2,0],[3,0]],
+          [[0,0],[0,1],[0,2],[0,3]]
+        ];
     }
   }
+
   toggleDraw() {
     for (const coord of this._blockPositions) {
       document.getElementById(`${coord[0]}x${coord[1]}`).classList.toggle("board__block--filled");
