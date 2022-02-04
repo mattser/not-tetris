@@ -17,7 +17,6 @@ export default class Board {
     }
   }
   createGrid () {
-    // return [...new Array(10).fill([...new Array(22).fill(0)])];
     let returnArr = [];
     for (let i = 0; i < 10; i++) {
       returnArr.push([]);
@@ -28,61 +27,39 @@ export default class Board {
     return returnArr;
   }
 
-  get grid () {
-    return this._grid;
+  mergeToGrid (blockCoords) {
+    blockCoords.forEach(coord => this._grid[coord[0]][coord[1]] = 1);
   }
-  set grid (value) {
-    this._grid = value;
+
+  isGameOver () {
+    return this._grid.some(column => column[2]);
   }
-  mergeToGrid(blockCoords) {
-    for (let i = 0; i < blockCoords.length; i++) {
-      let x = blockCoords[i][0];
-      let y = blockCoords[i][1];
-      this._grid[x][y] = 1;
-    }
-  }
-  isGameOver() {
-    let endLine = [];
-    for (let i = 0; i < 10; i++) {
-      endLine.push(this._grid[i][2])
-    }
-    return endLine.some(item => item);
-  }
-  checkForFilledRows() {
-    let rowTotal;
+
+  checkForFilledRows () {
     const completedRows = [];
     for (let y = 21; y > 0; y--){
-      rowTotal = 0
+      let rowTotal = 0;
       for (let x = 0; x < 10; x++) {
         rowTotal+= this._grid[x][y];
       }
-      if (rowTotal===10) {
-        
-        completedRows.push(y);
-        console.log(completedRows);
-      }
+      if (rowTotal===10) completedRows.push(y);
     }
-    if (completedRows.length > 0) {
-      console.log(this._grid);
-      this.deleteRows(completedRows);
-      console.log(this._grid);
-      return completedRows.length*2*100;
-    } else {
-      return 0;
-    }
+    if (completedRows.length) this.deleteRows(completedRows);
+    return completedRows.length*2*100;
   }
-  deleteRows(rows) {
+
+  deleteRows (rows) {
     this.toggleGridDraw();
     for (let i = 0; i < rows.length; i++) {
       for (let x = 0; x < 10; x ++) {
         this._grid[x].splice(rows[i]+i,1);
         this._grid[x].unshift(0);
-        console.log('Deleted Row');
       }
     }
     this.toggleGridDraw();
   }
-  toggleGridDraw() {
+  
+  toggleGridDraw () {
     for (let y = 0; y <= 21; y++) {
       for (let x = 0; x < 10; x++) {
         if (this._grid[x][y]) document.getElementById(`${x}x${y}`).classList.toggle("board__block--filled");
