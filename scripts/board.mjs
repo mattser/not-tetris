@@ -30,9 +30,7 @@ export default class Board {
   get grid () {
     return this._grid;
   }
-  set grid (value) {
-    this._grid = value;
-  }
+
   mergeToGrid(blockCoords) {
     for (let i = 0; i < blockCoords.length; i++) {
       let x = blockCoords[i][0];
@@ -56,7 +54,6 @@ export default class Board {
         rowTotal+= this._grid[x][y];
       }
       if (rowTotal===10) {
-        
         completedRows.push(y);
       }
     }
