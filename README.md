@@ -1,4 +1,4 @@
-# ~~Not~~ Tetris
+# ![~~Not~~ Tetris](./screenshots/screenshot3.png)
 
 ### By mattser
 <br />
@@ -38,3 +38,16 @@ Known Bugs
 Credits
 =======
 Font generated from [cufonfonts](https://www.cufonfonts.com/font/arcade), (c)1997-2003 Yuji Adachi
+
+<br />
+
+Screenshots
+===========
+
+*Pre Game State*
+
+![screenshot1](./screenshots/screenshot1.png)
+
+*Game*
+
+![screenshot2](./screenshots/screenshot2.png)
