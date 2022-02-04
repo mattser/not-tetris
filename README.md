@@ -1,4 +1,4 @@
-# ![~~Not~~ Tetris](./screenshots/screenshot3.png)
+# ![TETRIS'NT](./screenshots/header.png)
 
 ### By mattser
 <br />
@@ -46,8 +46,12 @@ Screenshots
 
 *Pre Game State*
 
-![screenshot1](./screenshots/screenshot1.png)
+![Start Screen](./screenshots/start_screen.png)
 
 *Game*
 
-![screenshot2](./screenshots/screenshot2.png)
+![Gameplay](./screenshots/gameplay.png)
+
+*Game Over*
+
+![Game Over](./screenshots/game_over.png)
